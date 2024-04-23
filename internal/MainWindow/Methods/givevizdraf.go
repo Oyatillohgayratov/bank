@@ -17,7 +17,7 @@ func Givevizdraf(id int){
     var n int
     fmt.Scan(&n)
 	if m >= n {
-    postgres.Vizdraf(id,n)
+    postgres.Vizdraf(n,id)
 	} else {
         fmt.Printf("\nYou don't have enough money\n")
     }
