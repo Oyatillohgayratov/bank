@@ -1,29 +1,22 @@
 package postgres
 
-import ("log"
-	)
+import (
+	"BANK/internal/hash"
+	"fmt"
+	"log"
+)
 
-func InsertTable() {
+func InsertTable(name string, email string, password string) {
 	db := Connection()
 	defer db.Close()
 
-	insertTableSQL := `
-		INSERT INTO "user" (name, email) VALUES ($1, $2)
-	`
+	hashedPassword := hash.HashPassword(password) // Hashing the password
 
-	stmt, err := db.Prepare(insertTableSQL)
-	if err != nil {
-		log.Fatal("Error preparing statement:", err)
-	}
-	defer stmt.Close()
-
-	name := "kim"
-	email := "kim@asdsa"
-	_, err = stmt.Exec(name, email)
+	_, err := db.Exec("INSERT INTO users (name, email, password) VALUES ($1, $2, $3)", name, email, hashedPassword)
 	if err != nil {
 		log.Fatal("Error inserting data:", err)
 	}
+
+	fmt.Println("Data inserted successfully.")
+
 }
-
-
-

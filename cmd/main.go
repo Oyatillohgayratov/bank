@@ -1,18 +1,12 @@
 package main
 
 import (
-	"fmt"
-	"BANK/storage/postgres"
-
-	_ "github.com/lib/pq"
+	firstwindow "BANK/internal/FirstWindow"
+	mainwindow "BANK/internal/MainWindow"
+	// _ "github.com/lib/pq"
 )
 
-
-
 func main() {
-	postgres.CreateTable()
-	// postgres.InsertTable()
-	l := postgres.PrintTable()
-	fmt.Println(string(l[0][0]))
-
+	id := firstwindow.Firstwindow()
+	mainwindow.Mainwindow(id)
 }

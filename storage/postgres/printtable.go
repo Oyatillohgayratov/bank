@@ -1,16 +1,16 @@
 package postgres
 
 import (
-	"fmt"
+	"BANK/config"
 	"log"
 )
 
-func PrintTable() []string{
+func PrintTable() []config.User {
 	db := Connection()
 	defer db.Close()
-	
+
 	printTableSQL := `
-		SELECT * FROM "user"
+		SELECT * FROM users
 	`
 
 	rows, err := db.Query(printTableSQL)
@@ -18,19 +18,22 @@ func PrintTable() []string{
 		log.Fatal(err)
 	}
 	defer rows.Close()
-	
-	var l []string
+
+	var users []config.User
 	for rows.Next() {
-		var id int
-		var name string
-		var email string
+		var user config.User
 
-		rows.Scan(&id, &name, &email)
-		
-		n := fmt.Sprint(id,name,email)
-		l = append(l,n)
+		err := rows.Scan(&user.ID, &user.Name, &user.Email, &user.Password, &user.Pocket)
+		if err != nil {
+			log.Fatal(err)
+		}
 
-		
+		users = append(users, user)
 	}
-	return l
+
+	if err := rows.Err(); err != nil {
+		log.Fatal(err)
+	}
+
+	return users
 }
