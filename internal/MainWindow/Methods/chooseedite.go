@@ -3,7 +3,6 @@ package methods
 import (
 	"BANK/storage/postgres"
     "BANK/internal/hash"
-
 	"fmt"
 )
 
@@ -19,10 +18,18 @@ func Chooseedit(id int) error {
         case 1:
 			fmt.Printf("Enter new name: ")
 			fmt.Scan(&s)
+            if postgres.CheckName(s){
+                fmt.Println("Please try again.")
+                return Chooseedit(id)
+            }
             postgres.Editname(s,id)
         case 2:
 			fmt.Printf("Enter new email: ")
 			fmt.Scan(&s)
+            if postgres.CheckEmail(s){
+                fmt.Println("Please try again.")
+                return Chooseedit(id)
+            }
             postgres.Editemail(s,id)
         case 3:
 			fmt.Printf("Enter new password: ")

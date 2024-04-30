@@ -6,7 +6,6 @@ import (
 )
 
 func Sendmoney(myid int){
-	l := postgres.PrintTable()
 	fmt.Print("ID: ")
 	var id int
 	fmt.Scan(&id)
@@ -14,12 +13,7 @@ func Sendmoney(myid int){
 	var sum int
 	fmt.Scan(&sum)
 
-	m := 0
-	for _, row := range l{
-        if row.ID == myid{
-            m = row.Pocket
-        }
-    }
+	m := postgres.GetPocket(id)	
 	if m >= sum {
         postgres.SendMoneyPsql(sum,myid,id)
     } else {

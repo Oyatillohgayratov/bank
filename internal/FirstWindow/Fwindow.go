@@ -3,7 +3,6 @@ package firstwindow
 import (
 	login "BANK/internal/Login"
 	rg "BANK/internal/Registration"
-	"BANK/storage/postgres"
 	"fmt"
 	"os"
 )
@@ -21,12 +20,10 @@ func Firstwindow() int {
 			return id
 		case 2:
 			id := login.SearchUser()
+			fmt.Printf("\nlogin: %d\n",id)
 			return id
 		case 3:
 			os.Exit(0)
-		case 4:
-			l := postgres.PrintTable()
-			fmt.Println(l)
 		default:
 			fmt.Println("Invalid Input")
 		}

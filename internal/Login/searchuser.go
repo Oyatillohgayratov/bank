@@ -13,14 +13,13 @@ func SearchUser() int{
 	fmt.Printf("Your Passward: ")
 	var password string
 	fmt.Scan(&password)
-
-	l := postgres.PrintTable()
-	for _, row := range l {
-		if row.ID == id && row.Password == hash.HashPassword(password) {
-            return id
-        }
+	psw := hash.HashPassword(password)
+	if postgres.CheckUser(id,psw){
+		return SearchUser()
 	}
-	fmt.Printf("\nWrong ID or password\nTRYING again\n")
-	return SearchUser()
+	return id
+
+	
+
 	
 }

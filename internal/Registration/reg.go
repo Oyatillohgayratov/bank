@@ -25,10 +25,20 @@ func Register() int {
 		fmt.Println("Validation error. Please try again.")
 		return Register()
 	}
+
+	if postgres.CheckName(name){
+		fmt.Println("Please try again.")
+		return Register()
+	}
+	if postgres.CheckEmail(email){
+		fmt.Println("Please try again.")
+		return Register()
+	}
+
 	postgres.InsertTable(name, email, password)
 
 	fmt.Println("Registration successful.")
-	return postgres.Select(name, email, password)
+	return postgres.Selectid(name, email, password)
 }
 
 func ValidateUser(name, email string) []error {

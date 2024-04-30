@@ -6,13 +6,7 @@ import (
 )
 
 func Givevizdraf(id int){
-	l := postgres.PrintTable()
-	m := 0
-	for _, row := range l{
-		if row.ID == id{
-            m = row.Pocket
-        }
-	}
+	m := postgres.GetPocket(id)
 	fmt.Printf("\nHow much do you want to vizdraf: ")
     var n int
     fmt.Scan(&n)

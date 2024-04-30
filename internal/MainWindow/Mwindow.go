@@ -1,21 +1,19 @@
 package mainwindow
 
 import (
-	f "BANK/internal/FirstWindow"
-	"BANK/storage/postgres"
 	m "BANK/internal/MainWindow/Methods"
+	"BANK/storage/postgres"
 	"fmt"
 )
 
-
-func Mainwindow(id int){
+func Mainwindow(id int) bool{
 	var s int
 	for {
 		fmt.Printf("\n0.Back\n1.My info\n2.Edit\n3.deposit money\n4.vizdraf money\n5.Send money\n6.Delate accaunt\n")
 		fmt.Scan(&s)
 		switch s {
 		case 0:
-			f.Firstwindow()
+			 return true
 		case 1:
 			m.Printinfo(id)
 		case 2:
@@ -28,7 +26,7 @@ func Mainwindow(id int){
 			m.Sendmoney(id)
 		case 6:
 			postgres.DelateAccauntPsql(id)
-			f.Firstwindow()
+			return true
 		}
 
 	}

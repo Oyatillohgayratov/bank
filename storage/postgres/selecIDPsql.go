@@ -5,7 +5,7 @@ import (
 	"log"
 )
 
-func Select(name, email, password string) int {
+func Selectid(name, email, password string) int {
 	db := Connection()
 	defer db.Close()
 	hashpassword := hash.HashPassword(password)
